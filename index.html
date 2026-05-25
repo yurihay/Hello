@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PersonaTalk</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="Personagens">
+        <div class="brand">
+          <div class="brand-mark">PT</div>
+          <div>
+            <h1>PersonaTalk</h1>
+            <p>Conversas com memoria</p>
+          </div>
+        </div>
+
+        <section class="panel compact">
+          <div class="panel-header">
+            <h2>Personagens</h2>
+            <button class="icon-button" id="newCharacterBtn" title="Novo personagem" aria-label="Novo personagem">+</button>
+          </div>
+          <div class="character-list" id="characterList"></div>
+        </section>
+
+        <section class="panel compact">
+          <div class="panel-header">
+            <h2>Sua persona</h2>
+            <button class="icon-button" id="newPersonaBtn" title="Nova persona" aria-label="Nova persona">+</button>
+          </div>
+          <select id="personaSelect" class="field"></select>
+          <button class="secondary full" id="editPersonaBtn">Editar persona</button>
+        </section>
+      </aside>
+
+      <section class="chat-area" aria-label="Conversa">
+        <header class="chat-header">
+          <div>
+            <span class="eyebrow" id="topicLabel">Namoro e amizade</span>
+            <h2 id="activeCharacterName">Luna</h2>
+            <p id="activeCharacterBio"></p>
+          </div>
+          <div class="header-actions">
+            <button class="secondary" id="memoryBtn">Memoria</button>
+            <button class="secondary" id="exportBtn">Exportar</button>
+            <label class="secondary import-label">
+              Importar
+              <input type="file" id="importInput" accept="application/json" />
+            </label>
+          </div>
+        </header>
+
+        <div class="chat-log" id="chatLog" aria-live="polite"></div>
+
+        <form class="composer" id="chatForm">
+          <select id="topicSelect" class="field topic-select" aria-label="Tema da conversa">
+            <option value="namoro">Namoro</option>
+            <option value="amizade">Amizade</option>
+            <option value="conflitos">Conflitos</option>
+            <option value="autoestima">Autoestima</option>
+            <option value="livre">Livre</option>
+          </select>
+          <textarea id="messageInput" rows="1" placeholder="Conte o que esta acontecendo..." required></textarea>
+          <button type="submit" class="primary">Enviar</button>
+        </form>
+      </section>
+
+      <aside class="inspector" aria-label="Detalhes">
+        <section class="panel">
+          <h2>Memoria ativa</h2>
+          <div class="memory-list" id="memoryPreview"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Atalhos de cuidado</h2>
+          <div class="quick-grid">
+            <button class="quick" data-prompt="Me ajude a entender se essa pessoa gosta de mim.">Interesse</button>
+            <button class="quick" data-prompt="Quero responder uma mensagem sem parecer carente.">Mensagem</button>
+            <button class="quick" data-prompt="Estou com medo de perder uma amizade.">Amizade</button>
+            <button class="quick" data-prompt="Preciso impor limites com carinho.">Limites</button>
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <dialog id="editorDialog">
+      <form method="dialog" class="dialog-card" id="editorForm">
+        <div class="dialog-header">
+          <h2 id="editorTitle">Editar</h2>
+          <button class="icon-button" value="cancel" aria-label="Fechar">x</button>
+        </div>
+        <input type="hidden" id="editorKind" />
+        <input type="hidden" id="editorId" />
+        <label>
+          Nome
+          <input class="field" id="editorName" required />
+        </label>
+        <label>
+          Descricao
+          <textarea class="field" id="editorBio" rows="3" required></textarea>
+        </label>
+        <label>
+          Jeito de falar
+          <textarea class="field" id="editorStyle" rows="4" required></textarea>
+        </label>
+        <div class="dialog-actions">
+          <button type="button" class="danger" id="deleteBtn">Excluir</button>
+          <button type="submit" class="primary">Salvar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="memoryDialog">
+      <form method="dialog" class="dialog-card wide">
+        <div class="dialog-header">
+          <h2>Memoria</h2>
+          <button class="icon-button" value="cancel" aria-label="Fechar">x</button>
+        </div>
+        <p class="muted">Adicione fatos importantes sobre voce, relacionamentos, amigos e preferencias. Eles aparecem nas respostas.</p>
+        <div class="memory-editor">
+          <input class="field" id="memoryInput" placeholder="Ex.: Eu valorizo sinceridade em namoro" />
+          <button type="button" class="primary" id="addMemoryBtn">Adicionar</button>
+        </div>
+        <div class="memory-list editable" id="memoryList"></div>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
